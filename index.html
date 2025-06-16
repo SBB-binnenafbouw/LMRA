@@ -181,6 +181,22 @@ function selecteer(button, vraagId, antwoord) {
     buttons.forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
 
+// Toon waarschuwing bij 'nee'
+const waarschuwingDiv = document.createElement('div');
+waarschuwingDiv.style.marginTop = '10px';
+waarschuwingDiv.style.color = '#721c24';
+waarschuwingDiv.style.backgroundColor = '#f8d7da';
+waarschuwingDiv.style.padding = '10px';
+waarschuwingDiv.style.borderRadius = '5px';
+waarschuwingDiv.innerText = antwoord === 'nee' ? teksten[huidigeTaal].resultaatNee : '';
+const bestaandeWaarschuwing = button.parentElement.parentElement.querySelector('.waarschuwing');
+if (bestaandeWaarschuwing) bestaandeWaarschuwing.remove();
+if (antwoord === 'nee') {
+    waarschuwingDiv.classList.add('waarschuwing');
+    button.parentElement.parentElement.appendChild(waarschuwingDiv);
+}
+
+    
     if (antwoord === 'nee') {
         waarschuwing.innerText = taalTeksten.resultaatNee;
         waarschuwing.style.display = 'block';
