@@ -1,208 +1,231 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <title>Laatste-Minuut-Risico-Analyse</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5; }
-        h1 { color: #333; font-size: 28px; }
-        .taalkeuze { margin-bottom: 20px; }
-        .taalkeuze select { padding: 8px; font-size: 16px; }
-        .vraag { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-        .vraag label { font-size: 20px; display: block; margin-bottom: 10px; font-weight: bold; }
-        .info { margin-top: 10px; margin-bottom: 20px; color: #555; font-size: 1em; font-style: italic; }
-        .keuze-buttons { margin-bottom: 10px; }
-        .keuze-buttons button { background-color: #e0e0e0; border: 1px solid #ccc; padding: 8px 16px; margin-right: 10px; border-radius: 5px; font-size: 16px; cursor: pointer; }
-        .keuze-buttons button.selected { background-color: #007BFF; color: white; border-color: #0056b3; }
-        .waarschuwing { color: #721c24; background-color: #f8d7da; padding: 10px; border-radius: 5px; margin-top: 10px; display: none; font-weight: bold; }
-        .resultaat { margin-top: 30px; font-weight: bold; font-size: 1.4em; text-align: center; padding: 20px; border-radius: 8px; display: none; }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Laatste-Minuut-Risico-Analyse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #FFFFFF;
+      color: #212121;
+    }
+
+    h1 {
+      color: #7C1829;
+      font-size: 28px;
+    }
+
+    .taalkeuze {
+      margin-bottom: 20px;
+    }
+
+    .taalkeuze select {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #A9A9A9;
+    }
+
+    .vraag {
+      background: #F9F9F9;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .vraag label {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #212121;
+    }
+
+    .info {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      color: #7C1829;
+      font-size: 1em;
+      font-style: italic;
+    }
+
+    .keuze-buttons {
+      margin-bottom: 10px;
+    }
+
+    .keuze-buttons button {
+      background-color: #E0E0E0;
+      border: 1px solid #A9A9A9;
+      padding: 8px 16px;
+      margin-right: 10px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      color: #212121;
+    }
+
+    .keuze-buttons button.selected {
+      background-color: #7C1829;
+      color: #FFFFFF;
+      border-color: #7C1829;
+    }
+
+    .waarschuwing {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background-color: #f8d7da;
+      color: #7C1829;
+      border-left: 4px solid #7C1829;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .resultaat {
+      margin-top: 30px;
+      font-weight: bold;
+      font-size: 1.4em;
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
 </head>
 <body onload="initPagina()">
 
 <h1 id="titel">Laatste-Minuut-Risico-Analyse</h1>
 
 <div class="taalkeuze">
-    <label for="language">Taal / Language:</label>
-    <select id="language" onchange="veranderTaal()">
-        <option value="nl">🇳🇱 Nederlands</option>
-        <option value="en">🇬🇧 English</option>
-        <option value="de">🇩🇪 Deutsch</option>
-        <option value="pl">🇵🇱 Polski</option>
-        <option value="ro">🇷🇴 Română</option>
-        <option value="bg">🇧🇬 Български</option>
-        <option value="sk">🇸🇰 Slovenčina</option>
-        <option value="uk">🇺🇦 Українська</option>
-    </select>
+  <label for="language">Taal / Language:</label>
+  <select id="language" onchange="veranderTaal()">
+    <option value="nl">🇳🇱 Nederlands</option>
+    <option value="en">🇬🇧 English</option>
+  </select>
 </div>
 
 <form id="veiligheidsForm">
-    <div id="vragenContainer"></div>
+  <div id="vragenContainer"></div>
 </form>
 
 <div id="resultaat" class="resultaat"></div>
 
 <script>
 const teksten = {
-    nl: {
-        titel: "Laatste-Minuut-Risico-Analyse",
-        vragen: [
-            ["Weet ik welke risico’s er zijn bij het werk?", "Begrijp ik welke gevaren er zijn, zoals vallen, snijden of inademen van stof?", "Voorbeeld: werken op hoogte = valgevaar."],
-            ["Ken ik de werkinstructie?", "Weet ik hoe ik het werk veilig moet uitvoeren volgens de afspraken?", "Voorbeeld: weten dat je eerst steigers moet controleren voor je erop werkt."],
-            ["Zijn mijn gereedschap en middelen goedgekeurd?", "Zijn mijn apparaten gecontroleerd en veilig om te gebruiken?", "Voorbeeld: keuringssticker op boormachine."],
-            ["Heb ik de juiste beschermingsmiddelen?", "Draag ik alles wat nodig is om mezelf te beschermen?", "Voorbeeld: helm, handschoenen, stofmasker."],
-            ["Is de werkplek veilig?", "Is de omgeving opgeruimd, stabiel en zonder directe gevaren?", "Voorbeeld: geen losse kabels op de grond."],
-            ["Weet ik wat te doen bij nood?", "Ken ik de nooduitgangen, EHBO-post en wie ik moet waarschuwen?", "Voorbeeld: weten waar de brandblusser hangt."]
-        ],
-        knoppen: ["Ja", "Nee"],
-        resultaatJa: "✅ U kan beginnen met werken.",
-        resultaatNee: "❌Los het probleem op of neem contact op met uw direct leidinggevende. Het loont niet om risico's te nemen!",
-        resultaatIncompleet: "⚠️ Beantwoord alle vragen."
-    },
-    en: {
-        titel: "Last-Minute Risk Assessment",
-        vragen: [
-            ["Do I know the risks of the job?", "Do I understand dangers like falling, cuts or breathing in dust?", "Example: working at height = fall risk."],
-            ["Do I know the work instruction?", "Do I know how to do the job safely according to the procedures?", "Example: check scaffolding before use."],
-            ["Are my tools and equipment approved?", "Have my tools been inspected and are they safe to use?", "Example: inspection sticker on drill."],
-            ["Do I have the right protective gear?", "Do I wear all necessary protection?", "Example: helmet, gloves, dust mask."],
-            ["Is the workplace safe?", "Is the area clean, stable and without hazards?", "Example: no loose cables on the floor."],
-            ["Do I know what to do in case of emergency?", "Do I know the emergency exits, first aid station and who to call?", "Example: knowing where the fire extinguisher is."]
-        ],
-        knoppen: ["Yes", "No"],
-        resultaatJa: "✅ You may start working.",
-        resultaatNee: "❌Fix the issue or contact your supervisor. It is not worth taking risks!",
-        resultaatIncompleet: "⚠️ Please answer all questions."
-    },
-    de: {
-        titel: "Last-Minute-Risikoanalyse",
-        vragen: [...],
-        knoppen: ["Ja", "Nein"],
-        resultaatJa: "✅ Sie können mit der Arbeit beginnen.",
-        resultaatNee: "❌Beheben Sie das Problem oder wenden Sie sich an Ihren Vorgesetzten. Es lohnt sich nicht, Risiken einzugehen!",
-        resultaatIncompleet: "⚠️ Bitte beantworten Sie alle Fragen."
-    },
-    pl: {
-        titel: "Ocena Ryzyka na Ostatnią Chwilę",
-        vragen: [...],
-        knoppen: ["Tak", "Nie"],
-        resultaatJa: "✅ Możesz rozpocząć pracę.",
-        resultaatNee: "❌Rozwiąż problem lub skontaktuj się z przełożonym. Nie warto ryzykować!",
-        resultaatIncompleet: "⚠️ Odpowiedz na wszystkie pytania."
-    },
-    ro: {
-        titel: "Evaluarea Riscurilor de Ultim Moment",
-        vragen: [...],
-        knoppen: ["Da", "Nu"],
-        resultaatJa: "✅ Puteți începe lucrul.",
-        resultaatNee: "❌Rezolvați problema sau contactați superiorul dumneavoastră. Nu merită să vă asumați riscuri!",
-        resultaatIncompleet: "⚠️ Răspundeți la toate întrebările."
-    },
-    bg: {
-        titel: "Оценка на риска в последния момент",
-        vragen: [...],
-        knoppen: ["Да", "Не"],
-        resultaatJa: "✅ Можете да започнете работа.",
-        resultaatNee: "❌Решете проблема или се свържете с вашия ръководител. Не си струва риска!",
-        resultaatIncompleet: "⚠️ Отговорете на всички въпроси."
-    },
-    sk: {
-        titel: "Analýza rizík na poslednú chvíľu",
-        vragen: [...],
-        knoppen: ["Áno", "Nie"],
-        resultaatJa: "✅ Môžete začať pracovať.",
-        resultaatNee: "❌Riešte problém alebo kontaktujte nadriadeného. Neoplatí sa riskovať!",
-        resultaatIncompleet: "⚠️ Odpovedzte na všetky otázky."
-    },
-    uk: {
-        titel: "Аналіз ризиків в останню хвилину",
-        vragen: [...],
-        knoppen: ["Так", "Ні"],
-        resultaatJa: "✅ Ви можете почати роботу.",
-        resultaatNee: "❌Усуньте проблему або зверніться до керівника. Не варто ризикувати!",
-        resultaatIncompleet: "⚠️ Дайте відповідь на всі запитання."
-    }
+  nl: {
+    titel: "Laatste-Minuut-Risico-Analyse",
+    vragen: [
+      ["Weet ik welke risico’s er zijn bij het werk?", "Begrijp ik welke gevaren er zijn, zoals vallen, snijden of inademen van stof?", "Voorbeeld: werken op hoogte = valgevaar."],
+      ["Ken ik de werkinstructie?", "Weet ik hoe ik het werk veilig moet uitvoeren volgens de afspraken?", "Voorbeeld: steiger controleren voor gebruik."],
+      ["Zijn mijn gereedschap en middelen goedgekeurd?", "Zijn mijn apparaten gecontroleerd en veilig om te gebruiken?", "Voorbeeld: keuringssticker op boormachine."],
+      ["Heb ik de juiste beschermingsmiddelen?", "Draag ik alles wat nodig is om mezelf te beschermen?", "Voorbeeld: helm, handschoenen, stofmasker."],
+      ["Is de werkplek veilig?", "Is de omgeving opgeruimd, stabiel en zonder directe gevaren?", "Voorbeeld: geen losse kabels op de grond."],
+      ["Weet ik wat te doen bij nood?", "Ken ik de nooduitgangen, EHBO-post en wie ik moet waarschuwen?", "Voorbeeld: weten waar de brandblusser hangt."]
+    ],
+    knoppen: ["Ja", "Nee"],
+    resultaatJa: "✅ U kan beginnen met werken.",
+    resultaatNee: "❌Los het probleem op of neem contact op met uw direct leidinggevende. Het loont niet om risico's te nemen!",
+    resultaatIncompleet: "⚠️ Beantwoord alle vragen."
+  },
+  en: {
+    titel: "Last-Minute Risk Assessment",
+    vragen: [
+      ["Do I know the risks of the job?", "Do I understand dangers like falling, cuts or breathing in dust?", "Example: working at height = fall risk."],
+      ["Do I know the work instruction?", "Do I know how to do the job safely according to the procedures?", "Example: check scaffolding before use."],
+      ["Are my tools and equipment approved?", "Have my tools been inspected and are they safe to use?", "Example: inspection sticker on drill."],
+      ["Do I have the right protective gear?", "Do I wear all necessary protection?", "Example: helmet, gloves, dust mask."],
+      ["Is the workplace safe?", "Is the area clean, stable and without hazards?", "Example: no loose cables on the floor."],
+      ["Do I know what to do in case of emergency?", "Do I know the emergency exits, first aid station and who to call?", "Example: knowing where the fire extinguisher is."]
+    ],
+    knoppen: ["Yes", "No"],
+    resultaatJa: "✅ You may start working.",
+    resultaatNee: "❌Fix the issue or contact your supervisor. It is not worth taking risks!",
+    resultaatIncompleet: "⚠️ Please answer all questions."
+  }
 };
 
 let antwoorden = {};
 let huidigeTaal = 'nl';
 
 function renderVragen(taal) {
-    const container = document.getElementById("vragenContainer");
-    const taalTeksten = teksten[taal];
-    document.getElementById("titel").innerText = taalTeksten.titel;
-    container.innerHTML = "";
-    huidigeTaal = taal;
-    antwoorden = {};
+  const container = document.getElementById("vragenContainer");
+  const taalTeksten = teksten[taal];
+  document.getElementById("titel").innerText = taalTeksten.titel;
+  container.innerHTML = "";
+  huidigeTaal = taal;
+  antwoorden = {};
 
-    taalTeksten.vragen.forEach((vraag, index) => {
-        const vraagId = `vraag${index + 1}`;
-        const vraagHTML = `
-        <div class="vraag" id="${vraagId}">
-            <label>${index + 1}. ${vraag[0]}</label>
-            <div class="info">${vraag[1]}<br><strong>${vraag[2]}</strong></div>
-            <div class="keuze-buttons">
-                <button type="button" onclick="selecteer(this, '${vraagId}', 'ja')">${taalTeksten.knoppen[0]}</button>
-                <button type="button" onclick="selecteer(this, '${vraagId}', 'nee')">${taalTeksten.knoppen[1]}</button>
-            </div>
-            <div class="waarschuwing" id="${vraagId}-waarschuwing"></div>
-        </div>`;
-        container.innerHTML += vraagHTML;
-    });
+  taalTeksten.vragen.forEach((vraag, index) => {
+    const vraagId = `vraag${index + 1}`;
+    container.innerHTML += `
+      <div class="vraag" id="${vraagId}">
+        <label>${index + 1}. ${vraag[0]}</label>
+        <div class="info">${vraag[1]}<br><strong>${vraag[2]}</strong></div>
+        <div class="keuze-buttons">
+          <button type="button" onclick="selecteer(this, '${vraagId}', 'ja')">${taalTeksten.knoppen[0]}</button>
+          <button type="button" onclick="selecteer(this, '${vraagId}', 'nee')">${taalTeksten.knoppen[1]}</button>
+        </div>
+        <div class="waarschuwing" id="${vraagId}-waarschuwing"></div>
+      </div>
+    `;
+  });
 
-    document.getElementById("resultaat").style.display = "none";
+  document.getElementById("resultaat").style.display = "none";
 }
 
 function veranderTaal() {
-    const taal = document.getElementById("language").value;
-    renderVragen(taal);
+  const taal = document.getElementById("language").value;
+  renderVragen(taal);
 }
 
 function selecteer(button, vraagId, antwoord) {
-    antwoorden[vraagId] = antwoord;
+  antwoorden[vraagId] = antwoord;
 
-    const buttons = button.parentElement.querySelectorAll('button');
-    buttons.forEach(btn => btn.classList.remove('selected'));
-    button.classList.add('selected');
+  const buttons = button.parentElement.querySelectorAll('button');
+  buttons.forEach(btn => btn.classList.remove('selected'));
+  button.classList.add('selected');
 
-    const waarschuwingDiv = document.getElementById(`${vraagId}-waarschuwing`);
-    if (antwoord === 'nee') {
-        waarschuwingDiv.textContent = teksten[huidigeTaal].resultaatNee;
-        waarschuwingDiv.style.display = "block";
-    } else {
-        waarschuwingDiv.textContent = '';
-        waarschuwingDiv.style.display = "none";
-    }
+  const waarschuwingDiv = document.getElementById(`${vraagId}-waarschuwing`);
+  const melding = teksten[huidigeTaal].resultaatNee;
 
-    controleerFormulier();
+  if (antwoord === 'nee') {
+    waarschuwingDiv.textContent = melding;
+    waarschuwingDiv.style.display = "block";
+  } else {
+    waarschuwingDiv.textContent = "";
+    waarschuwingDiv.style.display = "none";
+  }
+
+  controleerFormulier();
 }
 
 function controleerFormulier() {
-    const resultDiv = document.getElementById("resultaat");
-    const taalTeksten = teksten[huidigeTaal];
+  const resultDiv = document.getElementById("resultaat");
+  const taalTeksten = teksten[huidigeTaal];
 
-    if (Object.keys(antwoorden).length < 6) {
-        resultDiv.innerHTML = `<span style='color: orange;'>${taalTeksten.resultaatIncompleet}</span>`;
-        resultDiv.style.display = "block";
-        resultDiv.style.backgroundColor = "#fff3cd";
-        resultDiv.style.color = "#856404";
-        return;
-    }
-
-    let alleJa = Object.values(antwoorden).every(v => v === 'ja');
-    resultDiv.innerHTML = alleJa
-        ? `<span style='color: green;'>${taalTeksten.resultaatJa}</span>`
-        : `<span style='color: red;'>${taalTeksten.resultaatNee}</span>`;
+  if (Object.keys(antwoorden).length < 6) {
+    resultDiv.innerHTML = `<span>${taalTeksten.resultaatIncompleet}</span>`;
     resultDiv.style.display = "block";
-    resultDiv.style.backgroundColor = alleJa ? "#d4edda" : "#f8d7da";
-    resultDiv.style.color = alleJa ? "#155724" : "#721c24";
+    resultDiv.style.backgroundColor = "#FFF3CD";
+    resultDiv.style.color = "#7C1829";
+    return;
+  }
+
+  let alleJa = Object.values(antwoorden).every(v => v === 'ja');
+  resultDiv.innerHTML = alleJa
+    ? `<span>${taalTeksten.resultaatJa}</span>`
+    : `<span>${taalTeksten.resultaatNee}</span>`;
+  resultDiv.style.display = "block";
+  resultDiv.style.backgroundColor = alleJa ? "#d4edda" : "#f8d7da";
+  resultDiv.style.color = "#7C1829";
 }
 
 function initPagina() {
-    const userLang = navigator.language.slice(0, 2);
-    const taal = Object.keys(teksten).includes(userLang) ? userLang : 'nl';
-    document.getElementById("language").value = taal;
-    renderVragen(taal);
+  const userLang = navigator.language.slice(0, 2);
+  const taal = Object.keys(teksten).includes(userLang) ? userLang : 'nl';
+  document.getElementById("language").value = taal;
+  renderVragen(taal);
 }
 </script>
 
