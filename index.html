@@ -4,80 +4,17 @@
     <meta charset="UTF-8">
     <title>Laatste-Minuut-Risico-Analyse</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #FFFFFF;
-            color: #212121;
-        }
-        h1 {
-            color: #212121;
-            font-size: 28px;
-            margin-bottom: 30px;
-        }
-        .taalkeuze {
-            margin-bottom: 20px;
-        }
-        .taalkeuze select {
-            padding: 8px;
-            font-size: 16px;
-        }
-        .vraag {
-            background: #F9F9F9;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px rgba(0,0,0,0.05);
-        }
-        .vraag label {
-            font-size: 20px;
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #212121;
-        }
-        .info {
-            margin-top: 10px;
-            margin-bottom: 20px;
-            color: #212121;
-            font-size: 1em;
-            font-style: italic;
-        }
-        .keuze-buttons {
-            margin-bottom: 10px;
-        }
-        .keuze-buttons button {
-            background-color: #F9F9F9;
-            border: 1px solid #A9A9A9;
-            padding: 8px 16px;
-            margin-right: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            color: #212121;
-        }
-        .keuze-buttons button.selected {
-            background-color: #7C1829;
-            color: white;
-            border-color: #5c111f;
-        }
-        .waarschuwing {
-            color: #721c24;
-            background-color: #f8d7da;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            display: none;
-        }
-        .resultaat {
-            margin-top: 30px;
-            font-weight: bold;
-            font-size: 1.4em;
-            text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
-        }
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f5f5f5; }
+        h1 { color: #333; font-size: 28px; }
+        .taalkeuze { margin-bottom: 20px; }
+        .taalkeuze select { padding: 8px; font-size: 16px; }
+        .vraag { background: white; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
+        .vraag label { font-size: 20px; display: block; margin-bottom: 10px; font-weight: bold; }
+        .info { margin-top: 10px; margin-bottom: 20px; color: #555; font-size: 1em; font-style: italic; }
+        .keuze-buttons { margin-bottom: 10px; }
+        .keuze-buttons button { background-color: #e0e0e0; border: 1px solid #ccc; padding: 8px 16px; margin-right: 10px; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .keuze-buttons button.selected { background-color: #007BFF; color: white; border-color: #0056b3; }
+        .resultaat { margin-top: 30px; font-weight: bold; font-size: 1.4em; text-align: center; padding: 20px; border-radius: 8px; display: none; }
     </style>
 </head>
 <body onload="initPagina()">
@@ -106,6 +43,85 @@
 
 <script>
 const teksten = {
+    uk: {
+        titel: "Аналіз ризиків в останню хвилину",
+        vragen: [
+            ["Чи знаю я ризики, пов’язані з роботою?", "Чи розумію я небезпеки, такі як падіння, порізи або вдихання пилу?", "Приклад: робота на висоті = ризик падіння."],
+            ["Чи знаю я інструкції до роботи?", "Чи знаю, як безпечно виконувати роботу відповідно до інструкцій?", "Приклад: перевірити риштування перед використанням."],
+            ["Чи перевірені мої інструменти та обладнання?", "Чи були мої пристрої перевірені і чи безпечні вони у використанні?", "Приклад: наклейка перевірки на дрилі."],
+            ["Чи маю я відповідні засоби індивідуального захисту?", "Чи ношу я все необхідне для свого захисту?", "Приклад: шолом, рукавички, пилозахисна маска."],
+            ["Чи безпечне моє робоче місце?", "Чи чисте, стабільне та безпечне моє робоче середовище?", "Приклад: відсутність кабелів на підлозі."],
+            ["Чи знаю я, що робити в разі надзвичайної ситуації?", "Чи знаю я, де знаходяться аварійні виходи, пункт першої допомоги і кого повідомити?", "Приклад: знаю, де знаходиться вогнегасник."]
+        ],
+        knoppen: ["Так", "Ні"],
+        resultaatJa: "✅ Ви можете почати роботу.",
+        resultaatNee: "❌ Зверніться до свого безпосереднього керівника. Не варто ризикувати!",
+        resultaatIncompleet: "⚠️ Дайте відповідь на всі запитання."
+    },
+
+    sk: {
+        titel: "Analýza rizík na poslednú chvíľu",
+        vragen: [
+            ["Poznám riziká spojené s prácou?", "Rozumiem nebezpečenstvám ako je pád, porezanie alebo vdýchnutie prachu?", "Príklad: práca vo výške = riziko pádu."],
+            ["Poznám pracovný postup?", "Viem, ako vykonávať prácu bezpečne podľa pokynov?", "Príklad: skontrolovať lešenie pred použitím."],
+            ["Sú moje nástroje a zariadenia skontrolované?", "Boli moje zariadenia preverené a sú bezpečné na použitie?", "Príklad: kontrolná nálepka na vŕtačke."],
+            ["Mám správne osobné ochranné prostriedky?", "Používam všetko potrebné na svoju ochranu?", "Príklad: prilba, rukavice, prachová maska."],
+            ["Je pracovné prostredie bezpečné?", "Je prostredie upratané, stabilné a bez okamžitých hrozieb?", "Príklad: žiadne voľne ležiace káble na zemi."],
+            ["Viem, čo robiť v prípade núdze?", "Poznám núdzové východy, miesto prvej pomoci a koho kontaktovať?", "Príklad: viem, kde je hasiaci prístroj."]
+        ],
+        knoppen: ["Áno", "Nie"],
+        resultaatJa: "✅ Môžete začať pracovať.",
+        resultaatNee: "❌ Kontaktujte svojho priameho nadriadeného. Nestojí to za riziko!",
+        resultaatIncompleet: "⚠️ Odpovedzte na všetky otázky."
+    },
+
+    bg: {
+        titel: "Оценка на риска в последния момент",
+        vragen: [
+            ["Знам ли какви са рисковете при работата?", "Разбирам ли опасностите като падане, порязване или вдишване на прах?", "Пример: работа на височина = риск от падане."],
+            ["Знам ли инструкциите за работа?", "Знам ли как безопасно да извършвам работата според инструкциите?", "Пример: проверка на скелето преди ползване."],
+            ["Проверени ли са моите инструменти и съоръжения?", "Проверени ли са устройствата ми и безопасни ли са за употреба?", "Пример: стикер за проверка на бормашина."],
+            ["Имам ли правилните лични предпазни средства?", "Носех ли всичко необходимо за моята безопасност?", "Пример: каска, ръкавици, маска срещу прах."],
+            ["Работното място безопасно ли е?", "Околността чиста ли е, стабилна и без директни опасности?", "Пример: няма разхвърляни кабели на пода."],
+            ["Знам ли какво да правя при спешен случай?", "Знам ли къде са аварийните изходи, мястото за първа помощ и кого да уведомя?", "Пример: знам къде е пожарогасителят."]
+        ],
+        knoppen: ["Да", "Не"],
+        resultaatJa: "✅ Можете да започнете работа.",
+        resultaatNee: "❌ Свържете се с прекия си ръководител. Не си струва да поемате рискове!",
+        resultaatIncompleet: "⚠️ Отговорете на всички въпроси."
+    },
+
+    ro: {
+        titel: "Evaluarea Riscurilor de Ultim Moment",
+        vragen: [
+            ["Știu care sunt riscurile lucrării?", "Înțeleg pericolele precum căderile, tăieturile sau inhalarea de praf?", "Exemplu: lucrul la înălțime = risc de cădere."],
+            ["Cunosc instrucțiunile de lucru?", "Știu cum să execut munca în siguranță conform instrucțiunilor?", "Exemplu: verificarea schelei înainte de utilizare."],
+            ["Sunt uneltele și echipamentele mele verificate?", "Au fost verificate și sunt sigure pentru utilizare?", "Exemplu: etichetă de inspecție pe bormașină."],
+            ["Am echipamentul individual de protecție potrivit?", "Port tot ce este necesar pentru protecția mea?", "Exemplu: cască, mănuși, mască de praf."],
+            ["Locul de muncă este sigur?", "Este zona curată, stabilă și fără pericole imediate?", "Exemplu: fără cabluri libere pe jos."],
+            ["Știu ce să fac în caz de urgență?", "Cunosc ieșirile de urgență, punctul de prim ajutor și pe cine să anunț?", "Exemplu: știu unde este stingătorul."]
+        ],
+        knoppen: ["Da", "Nu"],
+        resultaatJa: "✅ Puteți începe lucrul.",
+        resultaatNee: "❌ Contactați superiorul dumneavoastră direct. Nu merită să vă asumați riscuri!",
+        resultaatIncompleet: "⚠️ Răspundeți la toate întrebările."
+    },
+    pl: {
+        titel: "Ocena Ryzyka na Ostatnią Chwilę",
+        vragen: [
+            ["Czy znam zagrożenia związane z pracą?", "Czy rozumiem zagrożenia takie jak upadek, skaleczenia lub wdychanie pyłu?", "Przykład: praca na wysokości = ryzyko upadku."],
+            ["Czy znam instrukcję pracy?", "Czy wiem, jak bezpiecznie wykonywać pracę zgodnie z ustaleniami?", "Przykład: sprawdzenie rusztowania przed użyciem."],
+            ["Czy moje narzędzia i sprzęt zostały sprawdzone?", "Czy moje urządzenia zostały skontrolowane i są bezpieczne?", "Przykład: naklejka kontrolna na wiertarce."],
+            ["Czy mam odpowiednie środki ochrony osobistej?", "Czy mam wszystko, co potrzebne do ochrony siebie?", "Przykład: kask, rękawice, maska przeciwpyłowa."],
+            ["Czy miejsce pracy jest bezpieczne?", "Czy otoczenie jest uporządkowane, stabilne i bez zagrożeń?", "Przykład: brak luźnych kabli na podłodze."],
+            ["Czy wiem, co zrobić w nagłym wypadku?", "Czy znam wyjścia ewakuacyjne, punkt pierwszej pomocy i kogo powiadomić?", "Przykład: wiem, gdzie znajduje się gaśnica."]
+        ],
+        knoppen: ["Tak", "Nie"],
+        resultaatJa: "✅ Możesz rozpocząć pracę.",
+        resultaatNee: "❌ Skontaktuj się z bezpośrednim przełożonym. Nie warto ryzykować!",
+        resultaatIncompleet: "⚠️ Odpowiedz na wszystkie pytania."
+    },
+
     nl: {
         titel: "Laatste-Minuut-Risico-Analyse",
         vragen: [
@@ -118,7 +134,7 @@ const teksten = {
         ],
         knoppen: ["Ja", "Nee"],
         resultaatJa: "✅ U kan beginnen met werken.",
-        resultaatNee: "❌ Los het probleem op of neem contact op met uw direct leidinggevende. Het loont niet om risico's te nemen!",
+        resultaatNee: "❌ Neem contact op met uw direct leidinggevende. Het loont niet om risico's te nemen!",
         resultaatIncompleet: "⚠️ Beantwoord alle vragen."
     },
     en: {
@@ -133,10 +149,24 @@ const teksten = {
         ],
         knoppen: ["Yes", "No"],
         resultaatJa: "✅ You may start working.",
-        resultaatNee: "❌ Solve the problem or contact your supervisor. It’s not worth the risk!",
+        resultaatNee: "❌ Contact your supervisor. It is not worth taking risks!",
         resultaatIncompleet: "⚠️ Please answer all questions."
+    },
+    de: {
+        titel: "Last-Minute-Risikoanalyse",
+        vragen: [
+            ["Kenne ich die Risiken der Arbeit?", "Verstehe ich Gefahren wie Stürze, Schnittverletzungen oder das Einatmen von Staub?", "Beispiel: Arbeiten in der Höhe = Sturzgefahr."],
+            ["Kenne ich die Arbeitsanweisung?", "Weiß ich, wie ich die Arbeit sicher gemäß den Anweisungen ausführen muss?", "Beispiel: Gerüst vor der Benutzung kontrollieren."],
+            ["Sind meine Werkzeuge und Arbeitsmittel geprüft?", "Wurden meine Geräte kontrolliert und sind sie sicher?", "Beispiel: Prüfplakette an der Bohrmaschine."],
+            ["Habe ich die richtigen persönlichen Schutzausrüstungen?", "Trage ich alle notwendigen Schutzmittel?", "Beispiel: Helm, Handschuhe, Staubmaske."],
+            ["Ist der Arbeitsplatz sicher?", "Ist die Umgebung aufgeräumt, stabil und ohne Gefahren?", "Beispiel: keine losen Kabel am Boden."],
+            ["Weiß ich, was im Notfall zu tun ist?", "Kenne ich die Notausgänge, Erste-Hilfe-Station und wen ich benachrichtigen muss?", "Beispiel: wissen, wo der Feuerlöscher hängt."]
+        ],
+        knoppen: ["Ja", "Nein"],
+        resultaatJa: "✅ Sie können mit der Arbeit beginnen.",
+        resultaatNee: "❌ Wenden Sie sich an Ihren Vorgesetzten. Es lohnt sich nicht, Risiken einzugehen!",
+        resultaatIncompleet: "⚠️ Bitte beantworten Sie alle Fragen."
     }
-    // Voeg hier andere talen toe als je wilt
 };
 
 let antwoorden = {};
@@ -151,14 +181,13 @@ function renderVragen(taal) {
 
     taalTeksten.vragen.forEach((vraag, index) => {
         const vraagHTML = `
-        <div class="vraag" id="vraag${index + 1}">
+        <div class="vraag">
             <label>${index + 1}. ${vraag[0]}</label>
             <div class="info">${vraag[1]}<br><strong>${vraag[2]}</strong></div>
             <div class="keuze-buttons">
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'ja')">${taalTeksten.knoppen[0]}</button>
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'nee')">${taalTeksten.knoppen[1]}</button>
             </div>
-            <div class="waarschuwing"></div>
         </div>`;
         container.innerHTML += vraagHTML;
     });
@@ -171,39 +200,11 @@ function veranderTaal() {
     renderVragen(taal);
 }
 
-function selecteer(button, vraagId, antwoord) {
-    antwoorden[vraagId] = antwoord;
-    const vraagElement = document.getElementById(vraagId);
-    const buttons = vraagElement.querySelectorAll('.keuze-buttons button');
-    const waarschuwing = vraagElement.querySelector('.waarschuwing');
-    const taalTeksten = teksten[huidigeTaal];
-
+function selecteer(button, vraag, antwoord) {
+    antwoorden[vraag] = antwoord;
+    const buttons = button.parentElement.querySelectorAll('button');
     buttons.forEach(btn => btn.classList.remove('selected'));
     button.classList.add('selected');
-
-// Toon waarschuwing bij 'nee'
-const waarschuwingDiv = document.createElement('div');
-waarschuwingDiv.style.marginTop = '10px';
-waarschuwingDiv.style.color = '#721c24';
-waarschuwingDiv.style.backgroundColor = '#f8d7da';
-waarschuwingDiv.style.padding = '10px';
-waarschuwingDiv.style.borderRadius = '5px';
-waarschuwingDiv.innerText = antwoord === 'nee' ? teksten[huidigeTaal].resultaatNee : '';
-const bestaandeWaarschuwing = button.parentElement.parentElement.querySelector('.waarschuwing');
-if (bestaandeWaarschuwing) bestaandeWaarschuwing.remove();
-if (antwoord === 'nee') {
-    waarschuwingDiv.classList.add('waarschuwing');
-    button.parentElement.parentElement.appendChild(waarschuwingDiv);
-}
-
-    
-    if (antwoord === 'nee') {
-        waarschuwing.innerText = taalTeksten.resultaatNee;
-        waarschuwing.style.display = 'block';
-    } else {
-        waarschuwing.style.display = 'none';
-    }
-
     controleerFormulier();
 }
 
