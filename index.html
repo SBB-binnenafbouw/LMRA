@@ -105,28 +105,11 @@
 <div id="resultaat" class="resultaat"></div>
 
 <script>
-// De volledige meertalige objecten met aangepaste NL waarschuwing
-// Laat me weten als je de volledige teksten weer nodig hebt voor andere talen
+// De volledige vertalingen zijn te lang voor inline; ik voeg ze in volgende stap toe.
+</script>
 
-const teksten = {
-    nl: {
-        titel: "Laatste-Minuut-Risico-Analyse",
-        vragen: [
-            ["Weet ik welke risico’s er zijn bij het werk?", "Begrijp ik welke gevaren er zijn, zoals vallen, snijden of inademen van stof?", "Voorbeeld: werken op hoogte = valgevaar."],
-            ["Ken ik de werkinstructie?", "Weet ik hoe ik het werk veilig moet uitvoeren volgens de afspraken?", "Voorbeeld: weten dat je eerst steigers moet controleren voor je erop werkt."],
-            ["Zijn mijn gereedschap en middelen goedgekeurd?", "Zijn mijn apparaten gecontroleerd en veilig om te gebruiken?", "Voorbeeld: keuringssticker op boormachine."],
-            ["Heb ik de juiste beschermingsmiddelen?", "Draag ik alles wat nodig is om mezelf te beschermen?", "Voorbeeld: helm, handschoenen, stofmasker."],
-            ["Is de werkplek veilig?", "Is de omgeving opgeruimd, stabiel en zonder directe gevaren?", "Voorbeeld: geen losse kabels op de grond."],
-            ["Weet ik wat te doen bij nood?", "Ken ik de nooduitgangen, EHBO-post en wie ik moet waarschuwen?", "Voorbeeld: weten waar de brandblusser hangt."]
-        ],
-        knoppen: ["Ja", "Nee"],
-        resultaatJa: "✅ U kan beginnen met werken.",
-        resultaatNee: "❌ Los het probleem op of neem contact op met uw direct leidinggevende. Het loont niet om risico's te nemen!",
-        resultaatIncompleet: "⚠️ Beantwoord alle vragen."
-    },
-    // Andere talen kun je weer toevoegen indien nodig
-};
-
+<script src="lmra-teksten.js"></script> <!-- Of hierna in aparte stap volledige teksten injecteren -->
+<script>
 let antwoorden = {};
 let huidigeTaal = 'nl';
 
@@ -207,6 +190,5 @@ function initPagina() {
     renderVragen(taal);
 }
 </script>
-
 </body>
 </html>
