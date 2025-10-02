@@ -12,7 +12,7 @@
         .vraag label { font-size: 20px; display: block; margin-bottom: 10px; font-weight: bold; }
         .info { margin-top: 10px; margin-bottom: 20px; color: #555; font-size: 1em; font-style: italic; }
         .keuze-buttons { margin-bottom: 10px; }
-        .keuze-buttons button { background-color: #e0e0e0; border: 1px solid #ccc; padding: 8px 16px; margin-right: 10px; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .keuze-buttons button { background-color: #e0e0e0; border: 1px solid #ccc; padding: 16px 32px; margin-right: 10px; border-radius: 5px; font-size: 20px; cursor: pointer; }
         .keuze-buttons button.selected { background-color: #007BFF; color: white; border-color: #0056b3; }
         .resultaat { margin-top: 30px; font-weight: bold; font-size: 1.4em; text-align: center; padding: 20px; border-radius: 8px; display: none; }
     </style>
@@ -184,7 +184,7 @@ function renderVragen(taal) {
         <div class="vraag">
             <label>${index + 1}. ${vraag[0]}</label>
             <div class="info">${vraag[1]}<br><strong>${vraag[2]}</strong></div>
-            <div class="keuze-buttons">
+            <div class="keuze-s">
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'ja')">${taalTeksten.knoppen[0]}</button>
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'nee')">${taalTeksten.knoppen[1]}</button>
             </div>
@@ -261,3 +261,4 @@ function initPagina() {
 
 </body>
 </html>
+
