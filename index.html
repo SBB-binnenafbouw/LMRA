@@ -184,7 +184,7 @@ function renderVragen(taal) {
         <div class="vraag">
             <label>${index + 1}. ${vraag[0]}</label>
             <div class="info">${vraag[1]}<br><strong>${vraag[2]}</strong></div>
-            <div class="keuze-s">
+            <div class="keuze-buttons">
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'ja')">${taalTeksten.knoppen[0]}</button>
                 <button type="button" onclick="selecteer(this, 'vraag${index + 1}', 'nee')">${taalTeksten.knoppen[1]}</button>
             </div>
@@ -261,5 +261,3 @@ function initPagina() {
 
 </body>
 </html>
-
-
